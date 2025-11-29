@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ML Master Exam - Chapter 1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --bg: #0f172a;
+            --bg-light: #1e293b;
+            --card-bg: #1e293b;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background gradient */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            animation: gradientShift 15s ease infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .app-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .app-container {
+                padding: 20px;
+            }
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 24px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        h1 { 
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .gh-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gh-link:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge { 
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            white-space: nowrap;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            width: 0%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        /* MAIN CONTENT */
+        .quiz-body {
+            padding: 0 24px 24px;
+            flex: 1;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .q-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            line-height: 1.6;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: 1fr;
+        }
+        
+        @media (min-width: 600px) {
+            .options-grid { 
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        button.option {
+            background: var(--bg-light);
+            border: 2px solid var(--border);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: left;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button.option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        button.option:hover:not(:disabled) {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+        }
+
+        button.option:hover:not(:disabled)::before {
+            opacity: 0.1;
+        }
+
+        button.option.correct {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(52, 211, 153, 0.2));
+            border-color: var(--success);
+            color: #6ee7b7;
+            animation: correctPulse 0.5s ease;
+        }
+
+        button.option.wrong {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(248, 113, 113, 0.2));
+            border-color: #ef4444;
+            color: #fca5a5;
+            animation: wrongShake 0.5s ease;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        button.option:disabled { 
+            cursor: default;
+        }
+
+        /* FEEDBACK */
+        .feedback {
+            display: none;
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--card-bg);
+            border-left: 5px solid var(--primary);
+            border-radius: 16px;
+            animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+        }
+
+        @keyframes fadeInUp { 
+            from { 
+                opacity: 0;
+                transform: translateY(10px);
+            } 
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            } 
+        }
+
+        .feedback strong {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .source-tag {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* FOOTER */
+        .nav-footer {
+            padding: 20px 24px;
+            background: var(--card-bg);
+            display: none;
+            justify-content: flex-end;
+            position: sticky;
+            bottom: 0;
+            border-top: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            margin-top: auto;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.5);
+        }
+
+        .next-btn:active {
+            transform: translateY(0);
+        }
+
+        /* RESULTS VIEW */
+        .results-view {
+            display: none;
+            text-align: center;
+            padding: 60px 24px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .results-view h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .big-score { 
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--success), #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 24px 0;
+            text-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .results-view > p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        #finalMsg {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 24px 0 40px;
+        }
+        
+        .restart-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.5);
+        }
+
+        /* GitHub Section */
+        .github-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .github-section p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #24292e, #000);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .github-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .github-icon {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            header {
+                border-radius: 0;
+                top: 0;
+                margin-bottom: 16px;
+            }
+
+            h1 {
+                font-size: 1.4rem;
+            }
+
+            .q-text {
+                font-size: 1.25rem;
+            }
+
+            .question-card {
+                padding: 24px;
+            }
+
+            .big-score {
+                font-size: 3.5rem;
+            }
+
+            .results-view h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <header id="appHeader">
+        <div class="header-flex">
+            <div>
+                <h1>ML Master Exam - Supervised Learning Classification </h1>
+                <p class="subtitle">Artificiell Intelligens (50%, omg 1) - HT25 (Samir Ahmad)</p>
+                
+                <a href="https://github.com/SamirAh90" target="_blank" class="gh-link">
+                    <svg height="16" width="16" viewBox="0 0 16 16" fill="white"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                    GitHub @SamirAh90 | ⭐ Star Repository & Follow for More! 
+                </a>
+            </div>
+            <div class="badge">Q: <span id="qNum">1</span>/110</div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </header>
+
+    <div class="quiz-body" id="quizBody">
+        <div class="question-card">
+            <div class="q-text" id="questionText">Loading Question...</div>
+            <div class="options-grid" id="optionsGrid"></div>
+        </div>
+
+        <div class="feedback" id="feedbackArea">
+            <strong id="feedbackTitle"></strong>
+            <span id="feedbackReason"></span>
+            <span class="source-tag" id="feedbackSource"></span>
+        </div>
+    </div>
+
+    <div class="nav-footer" id="navFooter">
+        <button class="next-btn" onclick="nextQ()">Next Question ➜</button>
+    </div>
+
+    <div class="results-view" id="resultsView">
+        <h2>Exam Completed!</h2>
+        <p>Your Final Score:</p>
+        <div class="big-score" id="finalScoreDisplay">0</div>
+        <p id="finalMsg"></p>
+        <button class="restart-btn" onclick="location.reload()">Take Exam Again</button>
+
+        <div class="github-section">
+            <p>Did this help? Support the project:</p>
+            <a href="https://github.com/SamirAh90" target="_blank" class="github-btn">
+                <svg class="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                Star Repository & Follow for More ⭐
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const db = [
+        // ============================================================
+        // MODULE 1: INTRODUCTION & FUNDAMENTALS (Start here)
+        // ============================================================
+        {
+            q: "According to Arthur Samuel (1959), Machine Learning is:",
+            opts: ["The ability to learn without being explicitly programmed", "The science of building robots", "Writing code that sums numbers", "Creating artificial brains"],
+            a: 0,
+            exp: "This is the founding definition: enabling computers to learn from data rather than strict rules.",
+            src: "Intro Slide: Definition"
+        },
+        {
+            q: "Tom Mitchell defined ML as a computer program learning from Experience (E) with respect to Task (T) and Performance (P). In a spam filter, what is 'E'?",
+            opts: ["Classifying new emails", "The percentage of correctly classified emails", "The database of labeled emails (spam/not spam)", "The user marking an email"],
+            a: 2,
+            exp: "Experience comes from the historical data (labeled examples) the system learns from.",
+            src: "Intro Slide: Mitchell's Definition"
+        },
+        {
+            q: "What is the primary goal of Supervised Learning?",
+            opts: ["To find hidden patterns", "To learn a mapping from inputs to outputs using labeled examples", "To generate new data", "To group similar items"],
+            a: 1,
+            exp: "Supervised learning trains on known input-output pairs to predict future outputs.",
+            src: "Intro Slide: Types of Learning"
+        },
+        {
+            q: "What is the main goal of Unsupervised Learning?",
+            opts: ["To predict labels", "To find hidden structure/patterns in unlabeled data", "To reinforce good behavior", "To classify images"],
+            a: 1,
+            exp: "Without labels, the goal is to discover intrinsic structure (like clusters).",
+            src: "Intro Slide: Types of Learning"
+        },
+        {
+            q: "Which of these is a Regression problem?",
+            opts: ["Predicting if a tumor is benign or malignant", "Predicting the price of a house", "Grouping customers by age", "Identifying a cat in a photo"],
+            a: 1,
+            exp: "Regression predicts a continuous numerical value (Price).",
+            src: "Intro Slide: Regression"
+        },
+        {
+            q: "Which of these is a Classification problem?",
+            opts: ["Predicting temperature for tomorrow", "Predicting if an email is Spam or Ham", "Predicting stock market value", "Clustering stars"],
+            a: 1,
+            exp: "Classification predicts a discrete category/label.",
+            src: "Intro Slide: Classification"
+        },
+        {
+            q: "In Reinforcement Learning, the agent learns by:",
+            opts: ["Reading labeled data", "Interacting with an environment and receiving rewards/penalties", "Grouping similar items", "Applying a formula"],
+            a: 1,
+            exp: "RL is based on a reward signal feedback loop.",
+            src: "Intro Slide: Reinforcement Learning"
+        },
+        {
+            q: "What is the 'No Free Lunch' theorem?",
+            opts: ["AI is expensive", "No single algorithm works best for every problem", "Data processing is free", "Models need more data"],
+            a: 1,
+            exp: "You cannot assume one algorithm (like SVM) is always better than another (like Decision Trees) without testing.",
+            src: "Intro Slide: Theory"
+        },
+        {
+            q: "What is 'Overfitting'?",
+            opts: ["The model is too simple", "The model learns the training data (and noise) too well, failing to generalize", "The model has too much data", "The model is under-trained"],
+            a: 1,
+            exp: "The model memorizes the training examples instead of learning the general rule.",
+            src: "Intro Slide: Challenges"
+        },
+        {
+            q: "What is 'Underfitting'?",
+            opts: ["The model is too complex", "The model is too simple to capture the underlying structure", "The model generalizes perfectly", "The error is zero"],
+            a: 1,
+            exp: "Example: Trying to fit a straight line to curved data.",
+            src: "Intro Slide: Challenges"
+        },
+        {
+            q: "Why do we split data into Training and Test sets?",
+            opts: ["To make the file smaller", "To estimate how well the model generalizes to unseen data", "To train the model twice", "To remove outliers"],
+            a: 1,
+            exp: "Testing on data the model hasn't seen is the only way to measure real performance.",
+            src: "Intro Slide: Methodology"
+        },
+        {
+            q: "What is Cross-Validation?",
+            opts: ["Validating data across two computers", "Splitting data into k-subsets to train/test multiple times", "Checking for viruses", "Mixing supervised and unsupervised"],
+            a: 1,
+            exp: "It provides a more robust estimate of performance by using all data for both training and testing in turns.",
+            src: "Intro Slide: Validation"
+        },
+        {
+            q: "What is 'Feature Engineering'?",
+            opts: ["Building the computer hardware", "Using domain knowledge to create new variables that make learning easier", "Writing Python code", "Installing libraries"],
+            a: 1,
+            exp: "Transforming raw data into better features (e.g., extracting 'Day of Week' from a date).",
+            src: "Intro Slide: Workflow"
+        },
+        {
+            q: "Which step typically consumes the most time in an ML project?",
+            opts: ["Data Preparation / Cleaning", "Choosing the algorithm", "Training the model", "Writing the report"],
+            a: 0,
+            exp: "Real-world data is messy; cleaning and formatting takes 80% of the effort.",
+            src: "Intro Slide: Workflow"
+        },
+        {
+            q: "What is a 'Hyperparameter'?",
+            opts: ["A parameter learned by the model (like weights)", "A configuration setting set before training (like 'k' in kNN)", "The final accuracy score", "The output label"],
+            a: 1,
+            exp: "Hyperparameters control the learning process and are not learned from the data itself.",
+            src: "Intro Slide: Definitions"
+        },
+
+        // ============================================================
+        // MODULE 2: UNSUPERVISED LEARNING (Clustering)
+        // ============================================================
+        {
+            q: "Which is the most common Unsupervised Learning technique?",
+            opts: ["Regression", "Clustering", "Classification", "Neural Networks"],
+            a: 1,
+            exp: "Clustering is the primary method for finding structure in unlabeled data.",
+            src: "Slide: Unsupervised"
+        },
+        {
+            q: "What defines a 'Cluster'?",
+            opts: ["A random grouping", "High intra-class similarity and low inter-class similarity", "A group of outliers", "A regression line"],
+            a: 1,
+            exp: "Items inside a cluster should be similar; items in different clusters should be different.",
+            src: "Slide: Cluster Definition"
+        },
+        {
+            q: "K-Means is what type of clustering approach?",
+            opts: ["Hierarchical", "Partitioning", "Density-based", "Fuzzy"],
+            a: 1,
+            exp: "It partitions the dataset into k distinct, non-overlapping subgroups.",
+            src: "Slide: K-Means"
+        },
+        {
+            q: "What is the role of the 'Centroid' in K-Means?",
+            opts: ["It is an outlier", "It is the geometric mean (center) of a cluster", "It is the border", "It is the starting point only"],
+            a: 1,
+            exp: "The centroid represents the average position of all points in that cluster.",
+            src: "Slide: K-Means Steps"
+        },
+        {
+            q: "What is the 'Elbow Method' used for?",
+            opts: ["To visualize clusters", "To determine the optimal number of clusters (k)", "To calculate distance", "To stop the algorithm"],
+            a: 1,
+            exp: "It finds the point where adding more clusters yields diminishing returns in error reduction.",
+            src: "Slide: Elbow Method"
+        },
+        {
+            q: "Hierarchical Clustering produces a tree diagram called a:",
+            opts: ["Histogram", "Dendrogram", "Scatter plot", "Pie chart"],
+            a: 1,
+            exp: "The dendrogram shows the history of merges or splits.",
+            src: "Slide: Hierarchical"
+        },
+        {
+            q: "Agglomerative Clustering is a _______ approach.",
+            opts: ["Top-Down", "Bottom-Up", "Random", "Partitioning"],
+            a: 1,
+            exp: "It starts with individual points and merges them up (Bottom-Up).",
+            src: "Slide: Hierarchical"
+        },
+        {
+            q: "What is 'Anomaly Detection'?",
+            opts: ["Grouping similar items", "Identifying rare items that differ significantly from the majority", " predicting future values", "Compressing data"],
+            a: 1,
+            exp: "Used for fraud detection, it finds the 'odd ones out'.",
+            src: "Slide: Unsupervised Applications"
+        },
+        {
+            q: "Dimensionality Reduction aims to:",
+            opts: ["Increase data size", "Reduce the number of variables while keeping essential info", "Remove rows of data", "Cluster data"],
+            a: 1,
+            exp: "It simplifies the data (fewer columns) to reduce complexity and noise.",
+            src: "Slide: Unsupervised Applications"
+        },
+        {
+            q: "The 'Market Basket Analysis' (Beer and Diapers) is an example of:",
+            opts: ["Clustering", "Association Mining", "Regression", "Anomaly Detection"],
+            a: 1,
+            exp: "It finds rules about items that co-occur in transactions.",
+            src: "Slide: Association Mining"
+        },
+
+        // ============================================================
+        // MODULE 3: SUPERVISED - k-NEAREST NEIGHBORS (kNN)
+        // ============================================================
+        {
+            q: "kNN is often called a 'Lazy Learner'. Why?",
+            opts: ["It is slow", "It does not build a model during training; it just stores the data", "It works only on small data", "It guesses randomly"],
+            a: 1,
+            exp: "It delays the generalization/computation until a query is made.",
+            src: "Slide: kNN Concept"
+        },
+        {
+            q: "How does kNN classify a new data point?",
+            opts: ["By finding a hyperplane", "By looking at the 'k' closest training examples and voting", "By building a decision tree", "By calculating the average of all data"],
+            a: 1,
+            exp: "It finds the nearest neighbors and assigns the most common class among them.",
+            src: "Slide: kNN Algorithm"
+        },
+        {
+            q: "Which distance metric is most commonly used in kNN?",
+            opts: ["Manhattan", "Euclidean", "Cosine", "Jaccard"],
+            a: 1,
+            exp: "Euclidean distance (straight line) is the standard default.",
+            src: "Slide: Distance Metrics"
+        },
+        {
+            q: "What happens if 'k' is too small (e.g., k=1)?",
+            opts: ["The model is too simple", "The model is sensitive to noise (Overfitting)", "The model ignores the data", "The model is perfect"],
+            a: 1,
+            exp: "With k=1, the model captures every noisy outlier, leading to overfitting.",
+            src: "Slide: Choosing k"
+        },
+        {
+            q: "What happens if 'k' is too large (e.g., k=N)?",
+            opts: ["The model becomes too complex", "The model effectively predicts the majority class (Underfitting)", "The computation is instant", "Accuracy is 100%"],
+            a: 1,
+            exp: "It smoothes out all boundaries and just picks the most common class in the whole dataset.",
+            src: "Slide: Choosing k"
+        },
+        {
+            q: "Why is Feature Scaling (Normalization) critical for kNN?",
+            opts: ["It isn't important", "Because kNN relies on distance; large scales (e.g., Salary) will dominate small scales (e.g., Age)", "It speeds up the CPU", "It adds more data"],
+            a: 1,
+            exp: "Without scaling, a variable ranging 0-10000 will overpower a variable ranging 0-1.",
+            src: "Slide: kNN Preprocessing"
+        },
+        {
+            q: "The 'Curse of Dimensionality' affects kNN because:",
+            opts: ["It cannot handle text", "In high dimensions, 'distance' becomes meaningless as all points are far apart", "It runs out of RAM", "It requires too many labels"],
+            a: 1,
+            exp: "As dimensions grow, data becomes sparse, and Euclidean distance fails to distinguish near/far.",
+            src: "Slide: kNN Issues"
+        },
+        {
+            q: "Is kNN parametric or non-parametric?",
+            opts: ["Parametric", "Non-parametric", "Semi-parametric", "Linear"],
+            a: 1,
+            exp: "It makes no assumptions about the underlying data distribution.",
+            src: "Slide: kNN Properties"
+        },
+        {
+            q: "Manhattan Distance is calculated as:",
+            opts: ["Straight line (hypotenuse)", "Sum of absolute differences (|x1-x2| + |y1-y2|)", "Product of coordinates", "Square root of sum"],
+            a: 1,
+            exp: "It measures distance along grid lines (like a taxi in a city).",
+            src: "Slide: Distance Metrics"
+        },
+        {
+            q: "Can kNN be used for Regression?",
+            opts: ["No, only classification", "Yes, by averaging the values of the k neighbors", "Yes, but only for time series", "No, it generates errors"],
+            a: 1,
+            exp: "For regression, kNN returns the average value of the neighbors instead of the majority vote.",
+            src: "Slide: kNN Regression"
+        },
+
+        // ============================================================
+        // MODULE 4: SUPERVISED - DECISION TREES
+        // ============================================================
+        {
+            q: "What structure does a Decision Tree use to make predictions?",
+            opts: ["A grid", "A flowchart-like tree structure", "A neural network", "A straight line"],
+            a: 1,
+            exp: "It splits data step-by-step based on feature values.",
+            src: "Slide: Decision Trees"
+        },
+        {
+            q: "The topmost node in a Decision Tree is called the:",
+            opts: ["Leaf Node", "Root Node", "Branch", "Split"],
+            a: 1,
+            exp: "The Root Node represents the entire dataset before any splits.",
+            src: "Slide: Tree Terminology"
+        },
+        {
+            q: "What does a 'Leaf Node' represent?",
+            opts: ["A decision rule", "The final output/prediction (class or value)", "The feature to split on", "The error rate"],
+            a: 1,
+            exp: "Leaf nodes are the terminal nodes that provide the final answer.",
+            src: "Slide: Tree Terminology"
+        },
+        {
+            q: "What metric is used to measure 'impurity' or 'disorder' in a node?",
+            opts: ["Accuracy", "Entropy (or Gini Impurity)", "Precision", "Recall"],
+            a: 1,
+            exp: "Entropy measures how mixed the classes are. Goal is to reduce entropy.",
+            src: "Slide: Splitting Criteria"
+        },
+        {
+            q: "What is 'Information Gain'?",
+            opts: ["The amount of data in the file", "The reduction in Entropy achieved by splitting a node", "The speed of the algorithm", "The number of leaves"],
+            a: 1,
+            exp: "The algorithm chooses the split that provides the highest Information Gain.",
+            src: "Slide: Splitting Criteria"
+        },
+        {
+            q: "Decision Trees are prone to Overfitting. How is this usually solved?",
+            opts: ["Increasing tree depth", "Pruning the tree (limiting depth or removing branches)", "Adding more features", "Removing labels"],
+            a: 1,
+            exp: "Pruning stops the tree from growing too complex and memorizing noise.",
+            src: "Slide: Pruning"
+        },
+        {
+            q: "Why are Decision Trees considered 'Interpretability' champions?",
+            opts: ["They are fast", "They can be visualized as simple IF-THEN rules humans understand", "They use neural connections", "They are black boxes"],
+            a: 1,
+            exp: "You can easily trace the path (e.g., IF Age > 50 AND Smoker=Yes THEN High Risk).",
+            src: "Slide: Pros/Cons"
+        },
+        {
+            q: "What is a 'Greedy Algorithm' in the context of Decision Trees?",
+            opts: ["It eats data", "It makes the locally optimal choice at each step without looking ahead", "It uses a lot of memory", "It requires money"],
+            a: 1,
+            exp: "It picks the best split *right now* rather than finding the globally optimal tree.",
+            src: "Slide: Algorithm Logic"
+        },
+        {
+            q: "Can Decision Trees handle both numerical and categorical data?",
+            opts: ["No, only numerical", "No, only categorical", "Yes, they handle both well", "Only if normalized"],
+            a: 2,
+            exp: "They are versatile and don't strictly require one type or scaling.",
+            src: "Slide: Pros/Cons"
+        },
+        {
+            q: "What is 'Gini Impurity'?",
+            opts: ["A type of drink", "Another metric like Entropy to measure node purity", "A pruning method", "A tree type"],
+            a: 1,
+            exp: "Gini is an alternative to Entropy, often used because it's faster to calculate.",
+            src: "Slide: Splitting Criteria"
+        },
+
+        // ============================================================
+        // MODULE 5: SUPERVISED - SUPPORT VECTOR MACHINES (SVM)
+        // ============================================================
+        {
+            q: "What is the main goal of an SVM?",
+            opts: ["To find the hyperplane that maximizes the margin between classes", "To find the average of classes", "To build a tree", "To find neighbors"],
+            a: 0,
+            exp: "SVM searches for the widest possible street (margin) separating the classes.",
+            src: "Slide: SVM Goal"
+        },
+        {
+            q: "What are 'Support Vectors'?",
+            opts: ["The centroids", "The data points closest to the hyperplane/decision boundary", "All data points", "The errors"],
+            a: 1,
+            exp: "These specific points define the position and orientation of the hyperplane.",
+            src: "Slide: Support Vectors"
+        },
+        {
+            q: "In SVM, what is a 'Hyperplane'?",
+            opts: ["A 3D shape", "The decision boundary that separates the classes", "The dataset", "The kernel"],
+            a: 1,
+            exp: "In 2D it's a line; in 3D it's a plane; in higher dimensions, it's a hyperplane.",
+            src: "Slide: SVM Terminology"
+        },
+        {
+            q: "What is the 'Kernel Trick'?",
+            opts: ["A way to cheat on tests", "A method to map non-linearly separable data into a higher dimension where it becomes linearly separable", "A way to compress data", "A pruning method"],
+            a: 1,
+            exp: "It allows SVM to draw linear boundaries in high dimensions that look like curves in the original space.",
+            src: "Slide: Kernel Trick"
+        },
+        {
+            q: "What is the difference between Hard Margin and Soft Margin SVM?",
+            opts: ["Hard is for text, Soft is for images", "Hard allows no errors; Soft allows some misclassification to be more robust", "Hard is faster", "Soft uses no math"],
+            a: 1,
+            exp: "Soft Margin allows some points to violate the boundary to prevent overfitting.",
+            src: "Slide: Margins"
+        },
+        {
+            q: "The 'C' parameter in SVM controls:",
+            opts: ["The number of kernels", "The trade-off between maximizing the margin and minimizing classification errors", "The speed of learning", "The number of clusters"],
+            a: 1,
+            exp: "High C = strict (Hard Margin); Low C = loose (Soft Margin).",
+            src: "Slide: Hyperparameters"
+        },
+        {
+            q: "Which kernel is commonly used for non-linear data in SVM?",
+            opts: ["Linear Kernel", "RBF (Radial Basis Function) Kernel", "Average Kernel", "Null Kernel"],
+            a: 1,
+            exp: "RBF is the default choice for non-linear problems.",
+            src: "Slide: Kernels"
+        },
+        {
+            q: "SVM is primarily a _______ classifier.",
+            opts: ["Binary (Two-class)", "Multi-class", "Unsupervised", "Regression"],
+            a: 0,
+            exp: "Standard SVM separates two classes (Positive vs Negative). Multi-class requires tricks like One-vs-Rest.",
+            src: "Slide: SVM Nature"
+        },
+        {
+            q: "Is SVM sensitive to unscaled data?",
+            opts: ["No", "Yes, highly sensitive", "Only with text", "Only with images"],
+            a: 1,
+            exp: "Because it calculates margins using distance, unscaled features ruin the result.",
+            src: "Slide: SVM Preprocessing"
+        },
+        {
+            q: "If data is Linearly Separable, which kernel should you use?",
+            opts: ["RBF", "Polynomial", "Linear", "Sigmoid"],
+            a: 2,
+            exp: "The Linear kernel is the simplest and fastest for data that can be cut with a straight line.",
+            src: "Slide: Kernels"
+        },
+
+        // ============================================================
+        // MODULE 6: MIXED / REVIEW (From Previous Chat & General)
+        // ============================================================
+        {
+            q: "In the regression formula y = mx + c, 'c' is:",
+            opts: ["Slope", "Intercept", "Error", "Input"],
+            a: 1,
+            exp: "The intercept is the value of y when x is 0.",
+            src: "Chat Review"
+        },
+        {
+            q: "Reshuffling in K-Means refers to:",
+            opts: ["Randomizing data", "Points switching clusters after centroids update", "Changing K", "Stopping"],
+            a: 1,
+            exp: "Points re-assign themselves to the nearest centroid in every iteration.",
+            src: "Chat Review"
+        },
+        {
+            q: "If your Elbow curve is smooth (no bend), you should:",
+            opts: ["Pick k=1", "Use business context to decide", "Give up", "Use Max k"],
+            a: 1,
+            exp: "Math isn't always decisive; practical needs (e.g., marketing budget) guide the choice.",
+            src: "Chat Review"
+        },
+        {
+            q: "Euclidean distance calculation involves:",
+            opts: ["Summing coordinates", "Squaring differences, summing, then square root", "Multiplying coordinates", "Averaging"],
+            a: 1,
+            exp: "Pythagorean theorem: Sqrt(a^2 + b^2).",
+            src: "Chat Review"
+        },
+        {
+            q: "A p-length mean vector represents:",
+            opts: ["A Centroid in p-dimensional space", "A password", "An error", "A cluster ID"],
+            a: 0,
+            exp: "It's the mathematical definition of a centroid with p features.",
+            src: "Chat Review"
+        },
+        {
+            q: "Why is 'Credit Card Fraud' usually Anomaly Detection?",
+            opts: ["It's a dense cluster", "It's a rare deviation from the norm", "It's supervised", "It's regression"],
+            a: 1,
+            exp: "Fraud is the 'odd one out', not a large group.",
+            src: "Chat Review"
+        },
+        {
+            q: "Agglomerative Clustering starts with:",
+            opts: ["One big cluster", "Every point as its own cluster", "Random centroids", "A grid"],
+            a: 1,
+            exp: "Bottom-up approach: Start distinct, merge until one.",
+            src: "Chat Review"
+        },
+        {
+            q: "Divisive Clustering starts with:",
+            opts: ["Every point alone", "One giant cluster containing everyone", "Random groups", "K clusters"],
+            a: 1,
+            exp: "Top-down approach: Start together, split until distinct.",
+            src: "Chat Review"
+        },
+        {
+            q: "What defines 'Hard Clustering'?",
+            opts: ["Overlap allowed", "No overlap (1 point = 1 cluster)", "Fuzzy logic", "Hierarchical"],
+            a: 1,
+            exp: "Strict boundaries; you are either In or Out.",
+            src: "Chat Review"
+        },
+        {
+            q: "Which technique compresses image files?",
+            opts: ["Clustering", "Dimensionality Reduction", "SVM", "kNN"],
+            a: 1,
+            exp: "Reducing pixels/variables while keeping the image recognizable.",
+            src: "Chat Review"
+        },
+        {
+            q: "If K-Means Centroid is at (3,3), it means:",
+            opts: ["There is a data point at (3,3)", "The average of the cluster is (3,3)", "The error is 3", "The radius is 3"],
+            a: 1,
+            exp: "Centroid is a calculated mean, often in empty space.",
+            src: "Chat Review"
+        },
+        {
+            q: "If K=N (number of points), error is:",
+            opts: ["Zero", "High", "Infinite", "Average"],
+            a: 0,
+            exp: "Distance to self is zero, but the model is useless.",
+            src: "Chat Review"
+        },
+        {
+            q: "What does the 'Green Boundary Line' in K-Means represent?",
+            opts: ["The territory split between centroids", "The error", "The regression line", "The x-axis"],
+            a: 0,
+            exp: "The line where points are equidistant to two centroids.",
+            src: "Chat Review"
+        },
+        {
+            q: "Association Mining finds:",
+            opts: ["Clusters", "Rules like If X then Y", "Anomalies", "Regression lines"],
+            a: 1,
+            exp: "Relationships between items (Beer -> Diapers).",
+            src: "Chat Review"
+        },
+        {
+            q: "Classification is a branch of:",
+            opts: ["Unsupervised", "Supervised", "Reinforcement", "Clustering"],
+            a: 1,
+            exp: "It requires labels to learn the classes.",
+            src: "Chat Review"
+        },
+        {
+            q: "What stops K-Means?",
+            opts: ["Convergence (Centroids stop moving)", "User click", "Error=0", "Data runs out"],
+            a: 0,
+            exp: "When the system stabilizes.",
+            src: "Chat Review"
+        },
+        {
+            q: "Standardizing data avoids bias in:",
+            opts: ["Distance-based algorithms (kNN, K-Means, SVM)", "Decision Trees", "Random Forest", "Naive Bayes"],
+            a: 0,
+            exp: "Distance calculations are sensitive to scale differences.",
+            src: "General ML"
+        },
+        {
+            q: "A Confusion Matrix is used to evaluate:",
+            opts: ["Regression", "Classification", "Clustering", "Reinforcement"],
+            a: 1,
+            exp: "It shows True Positives, False Positives, etc.",
+            src: "General ML"
+        },
+        {
+            q: "Accuracy is defined as:",
+            opts: ["(TP+TN) / Total", "TP / (TP+FP)", "TP / (TP+FN)", "1 - Error"],
+            a: 0,
+            exp: "The percentage of correct predictions overall.",
+            src: "General ML"
+        },
+        {
+            q: "The 'Test Set' simulates:",
+            opts: ["Training", "Real-world/Future data", "Past data", "Noise"],
+            a: 1,
+            exp: "It acts as a proxy for how the model will perform in the wild.",
+            src: "General ML"
+        },
+        {
+            q: "If a model has high variance, it is likely:",
+            opts: ["Overfitting", "Underfitting", "Perfect", "Linear"],
+            a: 0,
+            exp: "High variance means it changes too much with different data (memorization).",
+            src: "General ML"
+        },
+        {
+            q: "If a model has high bias, it is likely:",
+            opts: ["Overfitting", "Underfitting", "Complex", "Perfect"],
+            a: 1,
+            exp: "High bias means it ignores data structure (too simple).",
+            src: "General ML"
+        },
+        {
+            q: "Which algorithm uses 'Information Gain'?",
+            opts: ["SVM", "Decision Tree", "kNN", "Linear Regression"],
+            a: 1,
+            exp: "Used to decide the best split.",
+            src: "Slide: Decision Trees"
+        },
+        {
+            q: "Which algorithm uses 'Support Vectors'?",
+            opts: ["SVM", "Decision Tree", "kNN", "K-Means"],
+            a: 0,
+            exp: "SVM relies on the points closest to the boundary.",
+            src: "Slide: SVM"
+        },
+        {
+            q: "Which algorithm uses 'Voting'?",
+            opts: ["kNN", "Linear Regression", "K-Means", "PCA"],
+            a: 0,
+            exp: "Neighbors vote on the class of the new point.",
+            src: "Slide: kNN"
+        },
+        {
+            q: "Which algorithm uses 'Centroids'?",
+            opts: ["K-Means", "SVM", "Decision Tree", "kNN"],
+            a: 0,
+            exp: "The center of the cluster.",
+            src: "Slide: K-Means"
+        },
+        {
+            q: "Logic-based learning refers to:",
+            opts: ["Decision Trees", "Neural Networks", "kNN", "Regression"],
+            a: 0,
+            exp: "Trees use logical IF-THEN rules.",
+            src: "General ML"
+        },
+        {
+            q: "Instance-based learning refers to:",
+            opts: ["kNN", "Decision Trees", "SVM", "Neural Networks"],
+            a: 0,
+            exp: "It memorizes instances rather than building a model.",
+            src: "General ML"
+        },
+        {
+            q: "Hyperplane-based learning refers to:",
+            opts: ["SVM", "Decision Trees", "kNN", "Clustering"],
+            a: 0,
+            exp: "SVM splits space with a hyperplane.",
+            src: "General ML"
+        },
+        {
+            q: "What is the result of Pruning a Decision Tree?",
+            opts: ["Reduced complexity and overfitting", "Increased complexity", "More leaves", "Higher variance"],
+            a: 0,
+            exp: "It simplifies the tree to generalize better.",
+            src: "Slide: Decision Trees"
+        },
+        {
+            q: "If you remove the labels from a Spam dataset, can you use SVM?",
+            opts: ["No", "Yes", "Maybe", "Only with kernels"],
+            a: 0,
+            exp: "SVM is Supervised; it needs labels to learn the boundary.",
+            src: "Slide: SVM"
+        },
+        {
+            q: "In kNN, if k is even, what problem might arise?",
+            opts: ["Ties in voting", "Overfitting", "Underfitting", "Crash"],
+            a: 0,
+            exp: "2 votes for A, 2 votes for B -> Tie. Usually odd k is preferred.",
+            src: "Slide: kNN"
+        },
+        {
+            q: "Which is computationally more expensive at prediction time?",
+            opts: ["kNN", "Decision Tree", "Linear Regression", "SVM"],
+            a: 0,
+            exp: "kNN must calculate distance to ALL training points for every new prediction.",
+            src: "Slide: kNN"
+        },
+        {
+            q: "Gradient Descent is an algorithm for:",
+            opts: ["Optimization (Minimizing error)", "Clustering", "Classification", "Splitting trees"],
+            a: 0,
+            exp: "It adjusts weights to find the minimum error.",
+            src: "General ML"
+        },
+        {
+            q: "What is a 'Soft Margin' in SVM?",
+            opts: ["Allowing some misclassification to handle noise", "A curved line", "A clustering method", "A slow algorithm"],
+            a: 0,
+            exp: "It relaxes the strict boundary rule.",
+            src: "Slide: SVM"
+        },
+        {
+            q: "Which metric is best for imbalanced data (e.g. 99% healthy, 1% sick)?",
+            opts: ["Accuracy", "F1-Score / Precision-Recall", "MSE", "R-Squared"],
+            a: 1,
+            exp: "Accuracy is misleading if classes are imbalanced.",
+            src: "General ML"
+        },
+        {
+            q: "Clustering is distinct from Classification because:",
+            opts: ["Clustering has no predefined classes", "Clustering uses trees", "Clustering is supervised", "They are the same"],
+            a: 0,
+            exp: "Classification targets specific labels; Clustering finds natural groups.",
+            src: "Slide: Unsupervised"
+        },
+        {
+            q: "What is the 'Kernel' in SVM?",
+            opts: ["A function to transform data to higher dimensions", "The center of the data", "The error rate", "The algorithm name"],
+            a: 0,
+            exp: "The Kernel Trick handles non-linear data.",
+            src: "Slide: SVM"
+        },
+        {
+            q: "Entropy is a measure of:",
+            opts: ["Disorder / Impurity", "Distance", "Accuracy", "Speed"],
+            a: 0,
+            exp: "High entropy = mixed classes; Low entropy = pure node.",
+            src: "Slide: Decision Trees"
+        },
+        {
+            q: "Euclidean distance fails when:",
+            opts: ["Dimensions are very high", "Data is 2D", "Data is numerical", "K is 3"],
+            a: 0,
+            exp: "Curse of Dimensionality.",
+            src: "Slide: kNN"
+        },
+        {
+            q: "Which algorithm is 'Greedy'?",
+            opts: ["Decision Tree", "SVM", "kNN", "Linear Regression"],
+            a: 0,
+            exp: "It makes the best split at the current node without looking ahead.",
+            src: "Slide: Decision Trees"
+        },
+        {
+            q: "A decision boundary in Logistic Regression is:",
+            opts: ["Linear", "Curved", "Circular", "Tree-based"],
+            a: 0,
+            exp: "It is a linear classifier.",
+            src: "General ML"
+        },
+        {
+            q: "Bagging (Bootstrap Aggregating) is used in:",
+            opts: ["Random Forest", "SVM", "kNN", "K-Means"],
+            a: 0,
+            exp: "Random Forest combines many trees using bagging.",
+            src: "General ML"
+        },
+        {
+            q: "Bias-Variance Tradeoff describes:",
+            opts: ["The balance between model simplicity and flexibility", "The cost of the model", "The time vs space complexity", "The ratio of training data"],
+            a: 0,
+            exp: "Low bias/High variance = Overfit. High bias/Low variance = Underfit.",
+            src: "General ML"
+        },
+        {
+            q: "Which learning type uses 'Clusters'?",
+            opts: ["Unsupervised", "Supervised", "Reinforcement", "Semi-supervised"],
+            a: 0,
+            exp: "Clustering is the core of Unsupervised learning.",
+            src: "General ML"
+        },
+        {
+            q: "If your data is text, which preprocessing is needed?",
+            opts: ["Vectorization / Embedding", "Scaling only", "Nothing", "Deleting vowels"],
+            a: 0,
+            exp: "Models need numbers; text must be converted to vectors.",
+            src: "General ML"
+        },
+        {
+            q: "What is 'Label Encoding'?",
+            opts: ["Converting categories to numbers", "Writing labels by hand", "Removing labels", "Sorting labels"],
+            a: 0,
+            exp: "Turning 'Red, Blue' into '0, 1'.",
+            src: "General ML"
+        },
+        {
+            q: "In K-Means, what is 'Initialization'?",
+            opts: ["Placing the first centroids", "Loading data", "Cleaning data", "Evaluating error"],
+            a: 0,
+            exp: "The start position of centroids affects the result.",
+            src: "Slide: K-Means"
+        },
+        {
+            q: "Why is 'C' used in SVM?",
+            opts: ["Regularization parameter", "Count of vectors", "Cluster number", "Class label"],
+            a: 0,
+            exp: "It controls the penalty for misclassification.",
+            src: "Slide: SVM"
+        },
+        {
+            q: "What is the output of a Decision Tree Regression?",
+            opts: ["The average value of the leaf samples", "The majority class", "A probability", "A cluster ID"],
+            a: 0,
+            exp: "For regression trees, the leaf predicts the mean of the samples in it.",
+            src: "General ML"
+        }
+    ];
+
+    // Logic
+    let currentIdx = 0;
+    let score = 0;
+    const ui = {
+        qNum: document.getElementById('qNum'),
+        progressFill: document.getElementById('progressFill'),
+        questionText: document.getElementById('questionText'),
+        optionsGrid: document.getElementById('optionsGrid'),
+        feedbackArea: document.getElementById('feedbackArea'),
+        feedbackTitle: document.querySelector('#feedbackArea strong'),
+        feedbackReason: document.getElementById('feedbackReason'),
+        feedbackSource: document.getElementById('feedbackSource'),
+        navFooter: document.getElementById('navFooter'),
+        quizBody: document.getElementById('quizBody'),
+        resultsView: document.getElementById('resultsView'),
+        finalScoreDisplay: document.getElementById('finalScoreDisplay'),
+        finalMsg: document.getElementById('finalMsg'),
+        appHeader: document.getElementById('appHeader')
+    };
+
+    function loadQ() {
+        const item = db[currentIdx];
+        ui.qNum.innerText = currentIdx + 1;
+        
+        const pct = ((currentIdx) / db.length) * 100;
+        ui.progressFill.style.width = `${pct}%`;
+
+        ui.questionText.innerText = item.q;
+        
+        // Shuffle options
+        let indices = [0, 1, 2, 3];
+        indices.sort(() => Math.random() - 0.5);
+
+        ui.optionsGrid.innerHTML = '';
+        
+        indices.forEach(idx => {
+            const btn = document.createElement('button');
+            btn.className = 'option';
+            btn.innerText = item.opts[idx];
+            // Check if shuffled index matches the original correct answer index
+            const isCorrect = (idx === item.a);
+            btn.onclick = () => handleAnswer(isCorrect, btn, item);
+            ui.optionsGrid.appendChild(btn);
+        });
+
+        ui.feedbackArea.style.display = 'none';
+        ui.navFooter.style.display = 'none';
+        window.scrollTo(0,0);
+    }
+
+    function handleAnswer(isCorrect, btnEl, item) {
+        const allBtns = document.querySelectorAll('.option');
+        
+        allBtns.forEach(b => b.disabled = true);
+
+        if (isCorrect) {
+            score++;
+            btnEl.classList.add('correct');
+            ui.feedbackTitle.innerText = "Correct!";
+            ui.feedbackTitle.style.color = "#10b981"; // Success green
+        } else {
+            btnEl.classList.add('wrong');
+            // Find and highlight the correct answer
+            allBtns.forEach(b => {
+                if(b.innerText === item.opts[item.a]) {
+                    b.classList.add('correct');
+                }
+            });
+            ui.feedbackTitle.innerText = "Incorrect";
+            ui.feedbackTitle.style.color = "#ef4444"; // Error red
+        }
+
+        ui.feedbackReason.innerText = item.exp;
+        ui.feedbackSource.innerText = item.src;
+        ui.feedbackArea.style.display = 'block';
+        ui.navFooter.style.display = 'flex';
+    }
+
+    function nextQ() {
+        currentIdx++;
+        if (currentIdx < db.length) {
+            loadQ();
+        } else {
+            finishExam();
+        }
+    }
+
+    function finishExam() {
+        ui.quizBody.style.display = 'none';
+        ui.navFooter.style.display = 'none';
+        ui.appHeader.style.display = 'none';
+        ui.resultsView.style.display = 'block';
+
+        ui.finalScoreDisplay.innerText = `${score} / ${db.length}`;
+        
+        const percent = (score / db.length) * 100;
+        let msg = "";
+        if(percent >= 90) msg = "Outstanding! You are a master.";
+        else if(percent >= 70) msg = "Great job! You passed.";
+        else if(percent >= 50) msg = "Good start. Keep reviewing.";
+        else msg = "Keep studying!";
+        
+        ui.finalMsg.innerText = msg;
+    }
+
+    loadQ();
+</script>
+
+</body>
+</html>
