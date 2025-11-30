@@ -485,15 +485,15 @@
     <header id="appHeader">
         <div class="header-flex">
             <div>
-                <h1>ML Master Exam - Supervised Learning Classification </h1>
+                <h1>ML Master Exam - Chapter 1</h1>
                 <p class="subtitle">Artificiell Intelligens (50%, omg 1) - HT25 (Samir Ahmad)</p>
                 
                 <a href="https://github.com/SamirAh90" target="_blank" class="gh-link">
                     <svg height="16" width="16" viewBox="0 0 16 16" fill="white"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                    GitHub @SamirAh90 | ⭐ Star Repository & Follow for More! 
+                    GitHub @SamirAh90
                 </a>
             </div>
-            <div class="badge">Q: <span id="qNum">1</span>/110</div>
+            <div class="badge">Q: <span id="qNum">1</span>/160</div>
         </div>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
@@ -644,655 +644,804 @@
             exp: "Hyperparameters control the learning process and are not learned from the data itself.",
             src: "Intro Slide: Definitions"
         },
+        {
+            q: "What is the difference between batch learning and online learning?",
+            opts: ["Batch learns from all data at once; Online learns incrementally", "Batch is supervised; Online is unsupervised", "Batch uses internet; Online works offline", "Batch is faster"],
+            a: 0,
+            exp: "Batch learning trains on the full dataset offline; Online updates the model as new data arrives.",
+            src: "Exhibit M: Book - Learning Types"
+        },
+        {
+            q: "Which is a model-based learning approach?",
+            opts: ["k-Nearest Neighbors", "Linear Regression", "Memorization", "Rote Learning"],
+            a: 1,
+            exp: "It builds a mathematical model (formula) to generalize, unlike instance-based methods.",
+            src: "Exhibit M: Book - Model-Based"
+        },
+        {
+            q: "What does 'stochastic' mean in Stochastic Gradient Descent (SGD)?",
+            opts: ["It uses the whole dataset", "It uses a single random training example per step", "It uses a fixed order", "It is deterministic"],
+            a: 1,
+            exp: "Stochastic means random; SGD updates weights based on one random sample at a time.",
+            src: "Exhibit M: Book - Optimization"
+        },
+        {
+            q: "What is the 'Bias-Variance Tradeoff'?",
+            opts: ["Balance between underfitting (Bias) and overfitting (Variance)", "Cost vs Speed", "Training vs Testing time", "Hardware vs Software"],
+            a: 0,
+            exp: "High bias simplifies too much (underfit); high variance captures noise (overfit).",
+            src: "Exhibit M: Book - Theory"
+        },
+        {
+            q: "Which evaluation metric is defined as TP / (TP + FP)?",
+            opts: ["Recall", "Precision", "Accuracy", "Specificity"],
+            a: 1,
+            exp: "Precision measures how many of the predicted positives were actually positive.",
+            src: "Exhibit M: Book - Evaluation"
+        },
 
         // ============================================================
-        // MODULE 2: UNSUPERVISED LEARNING (Clustering)
+        // MODULE 2: DATA PREPARATION & FEATURES
         // ============================================================
+        {
+            q: "What is One-Hot Encoding?",
+            opts: ["Converting text to lowercase", "Converting categorical variables into binary (0/1) columns", "Scaling numbers", "Removing duplicates"],
+            a: 1,
+            exp: "It allows categorical data (Red, Blue) to be used mathematically (1 0, 0 1).",
+            src: "Exhibit N: Book - Preprocessing"
+        },
+        {
+            q: "Why is 'Imputation' used in data preprocessing?",
+            opts: ["To remove outliers", "To fill in missing values", "To sort data", "To encode labels"],
+            a: 1,
+            exp: "It replaces NaN/null values with mean, median, or other estimates so algorithms don't crash.",
+            src: "Exhibit N: Book - Cleaning"
+        },
+        {
+            q: "Standardization (Z-score normalization) scales data to have:",
+            opts: ["Mean = 0, Variance = 1", "Range [0, 1]", "Mean = 100", "No negative numbers"],
+            a: 0,
+            exp: "It centers data around 0 with unit variance, essential for SVM and Neural Nets.",
+            src: "Exhibit N: Book - Scaling"
+        },
+        {
+            q: "What is the 'dummy variable trap'?",
+            opts: ["Using too many features", "Variables are highly correlated (Multicollinearity) due to encoding", "Missing values", "Overfitting"],
+            a: 1,
+            exp: "Occurs in One-Hot Encoding if one column can be predicted from the others (e.g., IsMale vs IsFemale).",
+            src: "Exhibit N: Book - Encoding"
+        },
+        {
+            q: "Min-Max Scaling transforms data to which range?",
+            opts: ["[-1, 1]", "[0, 1]", "[0, 100]", "[-infinity, +infinity]"],
+            a: 1,
+            exp: "It scales values relative to the minimum and maximum observed values.",
+            src: "Exhibit N: Book - Scaling"
+        },
+
+        // ============================================================
+        // MODULE 3: SUPERVISED LEARNING (Regression & Classification)
+        // ============================================================
+        {
+            q: "In Logistic Regression, what function maps output to [0, 1]?",
+            opts: ["ReLU", "Sigmoid / Logistic", "Linear", "Tangent"],
+            a: 1,
+            exp: "The Sigmoid function squashes values into a probability between 0 and 1.",
+            src: "Exhibit O: Book - Logistic Regression"
+        },
+        {
+            q: "What does the 'L1' regularization (Lasso) encourage in weights?",
+            opts: ["Sparsity (setting some weights to exactly zero)", "Small weights but non-zero", "Large weights", "Negative weights"],
+            a: 0,
+            exp: "L1 penalty can eliminate features entirely by forcing coefficients to zero.",
+            src: "Exhibit O: Book - Regularization"
+        },
+        {
+            q: "What does 'L2' regularization (Ridge) do?",
+            opts: ["Forces weights to zero", "Shrinks weights towards zero but rarely reaches it", "Increases weights", "Selects features"],
+            a: 1,
+            exp: "Ridge penalizes large weights, reducing complexity without deleting features.",
+            src: "Exhibit O: Book - Regularization"
+        },
+        {
+            q: "Naive Bayes classifier is based on which theorem?",
+            opts: ["Pythagorean Theorem", "Bayes' Theorem", "Central Limit Theorem", "Taylor's Theorem"],
+            a: 1,
+            exp: "It calculates the probability of a class given features using Bayes' rule.",
+            src: "Exhibit O: Book - Naive Bayes"
+        },
+        {
+            q: "What is the 'strong assumption' of Naive Bayes?",
+            opts: ["Features are independent", "Data is linear", "Classes are balanced", "Features are normal"],
+            a: 0,
+            exp: "It assumes feature independence (e.g., 'Rain' doesn't affect 'Wind'), which is naive but often works.",
+            src: "Exhibit O: Book - Naive Bayes"
+        },
+        {
+            q: "Gradient Boosting builds models in what way?",
+            opts: ["In parallel", "Sequentially (each correcting the previous errors)", "Randomly", "Using a grid"],
+            a: 1,
+            exp: "It trains weak learners one by one, where each focuses on the mistakes of the predecessor.",
+            src: "Exhibit O: Book - Ensembles"
+        },
+        {
+            q: "Random Forest is an example of:",
+            opts: ["Boosting", "Bagging (Bootstrap Aggregating)", "Stacking", "Clustering"],
+            a: 1,
+            exp: "It builds many independent trees on random data subsets and averages their votes.",
+            src: "Exhibit O: Book - Ensembles"
+        },
+        {
+            q: "Which algorithm can handle missing values natively (without imputation)?",
+            opts: ["Linear Regression", "XGBoost / Some Decision Trees", "K-Means", "PCA"],
+            a: 1,
+            exp: "Modern tree algorithms can learn directions for missing values during splitting.",
+            src: "Exhibit O: Book - Trees"
+        },
+        {
+            q: "What is the difference between hard voting and soft voting in ensembles?",
+            opts: ["Hard uses class counts; Soft uses probability averages", "Hard is faster", "Soft is for regression", "There is no difference"],
+            a: 0,
+            exp: "Hard voting counts votes (2 vs 1); Soft voting averages the confidence/probability (0.9 + 0.8 / 2).",
+            src: "Exhibit O: Book - Ensembles"
+        },
+        {
+            q: "What is 'Early Stopping'?",
+            opts: ["Stopping training when validation error starts increasing", "Stopping when training error is 0", "Stopping after 5 minutes", "Stopping before data prep"],
+            a: 0,
+            exp: "It prevents overfitting by halting training at the optimal point.",
+            src: "Exhibit O: Book - Training"
+        },
+
+        // ============================================================
+        // MODULE 4: UNSUPERVISED & DIMENSIONALITY (Book additions)
+        // ============================================================
+        {
+            q: "PCA (Principal Component Analysis) tries to preserve what?",
+            opts: ["Class labels", "Variance", "Cluster centers", "Noise"],
+            a: 1,
+            exp: "PCA finds axes where the data is most spread out (maximizes variance).",
+            src: "Exhibit P: Book - Dimensionality"
+        },
+        {
+            q: "DBSCAN clustering defines clusters based on:",
+            opts: ["Centroids", "Density", "Hierarchy", "Grids"],
+            a: 1,
+            exp: "It groups points that are closely packed together (dense regions).",
+            src: "Exhibit P: Book - Clustering"
+        },
+        {
+            q: "Unlike K-Means, DBSCAN can identify:",
+            opts: ["Noise / Outliers", "Centroids", "Hyperplanes", "Regression lines"],
+            a: 0,
+            exp: "Points in low-density regions are marked as noise, not forced into a cluster.",
+            src: "Exhibit P: Book - Clustering"
+        },
+        {
+            q: "What is a 'Scree Plot' used for in PCA?",
+            opts: ["Visualizing clusters", "Deciding how many components to keep", "Checking accuracy", "Plotting loss"],
+            a: 1,
+            exp: "It shows the variance explained by each component, helping select the cutoff.",
+            src: "Exhibit P: Book - Dimensionality"
+        },
+        {
+            q: "What is t-SNE mainly used for?",
+            opts: ["Compression", "Data Visualization (2D/3D)", "Feature Selection", "Cleaning"],
+            a: 1,
+            exp: "It maps high-dimensional data to 2D/3D for visualization, preserving local structure.",
+            src: "Exhibit P: Book - Visualization"
+        },
+
+        // ============================================================
+        // MODULE 5: NEURAL NETWORKS & DEEP LEARNING (Book additions)
+        // ============================================================
+        {
+            q: "What is an 'Epoch'?",
+            opts: ["One update step", "One full pass through the entire training dataset", "A layer in the network", "The error rate"],
+            a: 1,
+            exp: "Training usually involves multiple epochs (passes over the data).",
+            src: "Exhibit Q: Book - Neural Nets"
+        },
+        {
+            q: "What is the role of an Activation Function (like ReLU)?",
+            opts: ["To make the model linear", "To introduce non-linearity", "To speed up training", "To normalize data"],
+            a: 1,
+            exp: "Without non-linearity, a neural net is just a linear regression model.",
+            src: "Exhibit Q: Book - Neural Nets"
+        },
+        {
+            q: "What is 'Backpropagation'?",
+            opts: ["Forward pass", "Algorithm to calculate gradients and update weights", "Initializing weights", "Predicting outputs"],
+            a: 1,
+            exp: "It propagates the error backward to adjust weights and learn.",
+            src: "Exhibit Q: Book - Neural Nets"
+        },
+        {
+            q: "What is a 'Dropout' layer?",
+            opts: ["A broken layer", "A regularization technique that randomly turns off neurons during training", "A layer that drops data", "An output layer"],
+            a: 1,
+            exp: "It prevents overfitting by forcing the network to be redundant.",
+            src: "Exhibit Q: Book - Deep Learning"
+        },
+        {
+            q: "CNNs (Convolutional Neural Networks) are best for:",
+            opts: ["Text", "Image/Video data", "Spreadsheets", "Audio only"],
+            a: 1,
+            exp: "They capture spatial hierarchies (edges, shapes) in images.",
+            src: "Exhibit Q: Book - Deep Learning"
+        },
+        {
+            q: "RNNs (Recurrent Neural Networks) are designed for:",
+            opts: ["Static images", "Sequential data (Time series, Text)", "Tabular data", "Unsupervised clustering"],
+            a: 1,
+            exp: "They have 'memory' to handle sequences where order matters.",
+            src: "Exhibit Q: Book - Deep Learning"
+        },
+        {
+            q: "What is the 'Vanishing Gradient' problem?",
+            opts: ["Gradients become too small to update weights in deep networks", "Gradients explode", "Data disappears", "Layers are removed"],
+            a: 0,
+            exp: "It prevents deep layers from learning effectively.",
+            src: "Exhibit Q: Book - Deep Learning"
+        },
+        {
+            q: "What is 'Transfer Learning'?",
+            opts: ["Moving data", "Using a pre-trained model on a new, similar task", "Switching algorithms", "Copying code"],
+            a: 1,
+            exp: "Leveraging knowledge (weights) from a huge dataset (e.g., ImageNet) for a smaller task.",
+            src: "Exhibit Q: Book - Deep Learning"
+        },
+        {
+            q: "Softmax activation is typically used in which layer?",
+            opts: ["Input", "Hidden", "Output (for multi-class classification)", "Dropout"],
+            a: 2,
+            exp: "It converts raw scores into probabilities that sum to 1.",
+            src: "Exhibit Q: Book - Neural Nets"
+        },
+        {
+            q: "What is a 'Tensor'?",
+            opts: ["A flow chart", "A multi-dimensional array", "A neural network", "A type of CPU"],
+            a: 1,
+            exp: "The fundamental data structure in Deep Learning (scalar, vector, matrix, tensor).",
+            src: "Exhibit Q: Book - Deep Learning"
+        },
+
+        // ============================================================
+        // MODULE 6: EVALUATION METRICS (Book additions)
+        // ============================================================
+        {
+            q: "What is the F1-Score?",
+            opts: ["Average of accuracy and error", "Harmonic mean of Precision and Recall", "TP - FP", "Same as Recall"],
+            a: 1,
+            exp: "It balances precision and recall, useful for imbalanced datasets.",
+            src: "Exhibit R: Book - Evaluation"
+        },
+        {
+            q: "ROC Curve plots which two metrics?",
+            opts: ["Precision vs Recall", "TPR (Recall) vs FPR", "Accuracy vs Loss", "Bias vs Variance"],
+            a: 1,
+            exp: "True Positive Rate vs False Positive Rate at different thresholds.",
+            src: "Exhibit R: Book - Evaluation"
+        },
+        {
+            q: "What does AUC (Area Under Curve) = 0.5 imply?",
+            opts: ["Perfect model", "Random guessing", "High error", "Good precision"],
+            a: 1,
+            exp: "0.5 is the diagonal line; the model has no discriminative power.",
+            src: "Exhibit R: Book - Evaluation"
+        },
+        {
+            q: "Which error metric penalizes large errors more heavily?",
+            opts: ["MAE (Mean Absolute Error)", "MSE (Mean Squared Error)", "R-Squared", "Accuracy"],
+            a: 1,
+            exp: "Squaring the error makes outliers have a huge impact.",
+            src: "Exhibit R: Book - Evaluation"
+        },
+        {
+            q: "What is R-Squared (Coefficient of Determination)?",
+            opts: ["Error rate", "Proportion of variance explained by the model", "Root mean error", "Slope"],
+            a: 1,
+            exp: "R²=1 means perfect fit; R²=0 means the model explains none of the variability.",
+            src: "Exhibit R: Book - Evaluation"
+        },
+
+        // --- ORIGINAL SLIDE QUESTIONS (Keeping specific ones for completeness) ---
         {
             q: "Which is the most common Unsupervised Learning technique?",
             opts: ["Regression", "Clustering", "Classification", "Neural Networks"],
             a: 1,
             exp: "Clustering is the primary method for finding structure in unlabeled data.",
-            src: "Slide: Unsupervised"
+            src: "Exhibit M: Unsupervised"
         },
         {
             q: "What defines a 'Cluster'?",
             opts: ["A random grouping", "High intra-class similarity and low inter-class similarity", "A group of outliers", "A regression line"],
             a: 1,
             exp: "Items inside a cluster should be similar; items in different clusters should be different.",
-            src: "Slide: Cluster Definition"
+            src: "Exhibit M: Cluster Definition"
         },
         {
             q: "K-Means is what type of clustering approach?",
             opts: ["Hierarchical", "Partitioning", "Density-based", "Fuzzy"],
             a: 1,
             exp: "It partitions the dataset into k distinct, non-overlapping subgroups.",
-            src: "Slide: K-Means"
+            src: "Exhibit N: K-Means"
         },
         {
             q: "What is the role of the 'Centroid' in K-Means?",
             opts: ["It is an outlier", "It is the geometric mean (center) of a cluster", "It is the border", "It is the starting point only"],
             a: 1,
             exp: "The centroid represents the average position of all points in that cluster.",
-            src: "Slide: K-Means Steps"
-        },
-        {
-            q: "What is the 'Elbow Method' used for?",
-            opts: ["To visualize clusters", "To determine the optimal number of clusters (k)", "To calculate distance", "To stop the algorithm"],
-            a: 1,
-            exp: "It finds the point where adding more clusters yields diminishing returns in error reduction.",
-            src: "Slide: Elbow Method"
+            src: "Exhibit N: K-Means Steps"
         },
         {
             q: "Hierarchical Clustering produces a tree diagram called a:",
             opts: ["Histogram", "Dendrogram", "Scatter plot", "Pie chart"],
             a: 1,
             exp: "The dendrogram shows the history of merges or splits.",
-            src: "Slide: Hierarchical"
+            src: "Exhibit O: Hierarchical"
         },
-        {
-            q: "Agglomerative Clustering is a _______ approach.",
-            opts: ["Top-Down", "Bottom-Up", "Random", "Partitioning"],
-            a: 1,
-            exp: "It starts with individual points and merges them up (Bottom-Up).",
-            src: "Slide: Hierarchical"
-        },
-        {
-            q: "What is 'Anomaly Detection'?",
-            opts: ["Grouping similar items", "Identifying rare items that differ significantly from the majority", " predicting future values", "Compressing data"],
-            a: 1,
-            exp: "Used for fraud detection, it finds the 'odd ones out'.",
-            src: "Slide: Unsupervised Applications"
-        },
-        {
-            q: "Dimensionality Reduction aims to:",
-            opts: ["Increase data size", "Reduce the number of variables while keeping essential info", "Remove rows of data", "Cluster data"],
-            a: 1,
-            exp: "It simplifies the data (fewer columns) to reduce complexity and noise.",
-            src: "Slide: Unsupervised Applications"
-        },
-        {
-            q: "The 'Market Basket Analysis' (Beer and Diapers) is an example of:",
-            opts: ["Clustering", "Association Mining", "Regression", "Anomaly Detection"],
-            a: 1,
-            exp: "It finds rules about items that co-occur in transactions.",
-            src: "Slide: Association Mining"
-        },
-
-        // ============================================================
-        // MODULE 3: SUPERVISED - k-NEAREST NEIGHBORS (kNN)
-        // ============================================================
         {
             q: "kNN is often called a 'Lazy Learner'. Why?",
             opts: ["It is slow", "It does not build a model during training; it just stores the data", "It works only on small data", "It guesses randomly"],
             a: 1,
             exp: "It delays the generalization/computation until a query is made.",
-            src: "Slide: kNN Concept"
+            src: "Exhibit R: kNN Concept"
         },
         {
             q: "How does kNN classify a new data point?",
             opts: ["By finding a hyperplane", "By looking at the 'k' closest training examples and voting", "By building a decision tree", "By calculating the average of all data"],
             a: 1,
             exp: "It finds the nearest neighbors and assigns the most common class among them.",
-            src: "Slide: kNN Algorithm"
+            src: "Exhibit R: kNN Algorithm"
         },
         {
             q: "Which distance metric is most commonly used in kNN?",
             opts: ["Manhattan", "Euclidean", "Cosine", "Jaccard"],
             a: 1,
             exp: "Euclidean distance (straight line) is the standard default.",
-            src: "Slide: Distance Metrics"
+            src: "Exhibit S: Distance Metrics"
         },
         {
             q: "What happens if 'k' is too small (e.g., k=1)?",
             opts: ["The model is too simple", "The model is sensitive to noise (Overfitting)", "The model ignores the data", "The model is perfect"],
             a: 1,
             exp: "With k=1, the model captures every noisy outlier, leading to overfitting.",
-            src: "Slide: Choosing k"
-        },
-        {
-            q: "What happens if 'k' is too large (e.g., k=N)?",
-            opts: ["The model becomes too complex", "The model effectively predicts the majority class (Underfitting)", "The computation is instant", "Accuracy is 100%"],
-            a: 1,
-            exp: "It smoothes out all boundaries and just picks the most common class in the whole dataset.",
-            src: "Slide: Choosing k"
-        },
-        {
-            q: "Why is Feature Scaling (Normalization) critical for kNN?",
-            opts: ["It isn't important", "Because kNN relies on distance; large scales (e.g., Salary) will dominate small scales (e.g., Age)", "It speeds up the CPU", "It adds more data"],
-            a: 1,
-            exp: "Without scaling, a variable ranging 0-10000 will overpower a variable ranging 0-1.",
-            src: "Slide: kNN Preprocessing"
+            src: "Exhibit T: Choosing k"
         },
         {
             q: "The 'Curse of Dimensionality' affects kNN because:",
             opts: ["It cannot handle text", "In high dimensions, 'distance' becomes meaningless as all points are far apart", "It runs out of RAM", "It requires too many labels"],
             a: 1,
             exp: "As dimensions grow, data becomes sparse, and Euclidean distance fails to distinguish near/far.",
-            src: "Slide: kNN Issues"
+            src: "Exhibit U: kNN Issues"
         },
-        {
-            q: "Is kNN parametric or non-parametric?",
-            opts: ["Parametric", "Non-parametric", "Semi-parametric", "Linear"],
-            a: 1,
-            exp: "It makes no assumptions about the underlying data distribution.",
-            src: "Slide: kNN Properties"
-        },
-        {
-            q: "Manhattan Distance is calculated as:",
-            opts: ["Straight line (hypotenuse)", "Sum of absolute differences (|x1-x2| + |y1-y2|)", "Product of coordinates", "Square root of sum"],
-            a: 1,
-            exp: "It measures distance along grid lines (like a taxi in a city).",
-            src: "Slide: Distance Metrics"
-        },
-        {
-            q: "Can kNN be used for Regression?",
-            opts: ["No, only classification", "Yes, by averaging the values of the k neighbors", "Yes, but only for time series", "No, it generates errors"],
-            a: 1,
-            exp: "For regression, kNN returns the average value of the neighbors instead of the majority vote.",
-            src: "Slide: kNN Regression"
-        },
-
-        // ============================================================
-        // MODULE 4: SUPERVISED - DECISION TREES
-        // ============================================================
         {
             q: "What structure does a Decision Tree use to make predictions?",
             opts: ["A grid", "A flowchart-like tree structure", "A neural network", "A straight line"],
             a: 1,
             exp: "It splits data step-by-step based on feature values.",
-            src: "Slide: Decision Trees"
-        },
-        {
-            q: "The topmost node in a Decision Tree is called the:",
-            opts: ["Leaf Node", "Root Node", "Branch", "Split"],
-            a: 1,
-            exp: "The Root Node represents the entire dataset before any splits.",
-            src: "Slide: Tree Terminology"
-        },
-        {
-            q: "What does a 'Leaf Node' represent?",
-            opts: ["A decision rule", "The final output/prediction (class or value)", "The feature to split on", "The error rate"],
-            a: 1,
-            exp: "Leaf nodes are the terminal nodes that provide the final answer.",
-            src: "Slide: Tree Terminology"
+            src: "Exhibit X: Decision Trees"
         },
         {
             q: "What metric is used to measure 'impurity' or 'disorder' in a node?",
             opts: ["Accuracy", "Entropy (or Gini Impurity)", "Precision", "Recall"],
             a: 1,
             exp: "Entropy measures how mixed the classes are. Goal is to reduce entropy.",
-            src: "Slide: Splitting Criteria"
+            src: "Exhibit Y: Splitting Criteria"
         },
         {
             q: "What is 'Information Gain'?",
             opts: ["The amount of data in the file", "The reduction in Entropy achieved by splitting a node", "The speed of the algorithm", "The number of leaves"],
             a: 1,
             exp: "The algorithm chooses the split that provides the highest Information Gain.",
-            src: "Slide: Splitting Criteria"
+            src: "Exhibit Y: Splitting Criteria"
         },
         {
             q: "Decision Trees are prone to Overfitting. How is this usually solved?",
             opts: ["Increasing tree depth", "Pruning the tree (limiting depth or removing branches)", "Adding more features", "Removing labels"],
             a: 1,
             exp: "Pruning stops the tree from growing too complex and memorizing noise.",
-            src: "Slide: Pruning"
+            src: "Exhibit Z: Pruning"
         },
-        {
-            q: "Why are Decision Trees considered 'Interpretability' champions?",
-            opts: ["They are fast", "They can be visualized as simple IF-THEN rules humans understand", "They use neural connections", "They are black boxes"],
-            a: 1,
-            exp: "You can easily trace the path (e.g., IF Age > 50 AND Smoker=Yes THEN High Risk).",
-            src: "Slide: Pros/Cons"
-        },
-        {
-            q: "What is a 'Greedy Algorithm' in the context of Decision Trees?",
-            opts: ["It eats data", "It makes the locally optimal choice at each step without looking ahead", "It uses a lot of memory", "It requires money"],
-            a: 1,
-            exp: "It picks the best split *right now* rather than finding the globally optimal tree.",
-            src: "Slide: Algorithm Logic"
-        },
-        {
-            q: "Can Decision Trees handle both numerical and categorical data?",
-            opts: ["No, only numerical", "No, only categorical", "Yes, they handle both well", "Only if normalized"],
-            a: 2,
-            exp: "They are versatile and don't strictly require one type or scaling.",
-            src: "Slide: Pros/Cons"
-        },
-        {
-            q: "What is 'Gini Impurity'?",
-            opts: ["A type of drink", "Another metric like Entropy to measure node purity", "A pruning method", "A tree type"],
-            a: 1,
-            exp: "Gini is an alternative to Entropy, often used because it's faster to calculate.",
-            src: "Slide: Splitting Criteria"
-        },
-
-        // ============================================================
-        // MODULE 5: SUPERVISED - SUPPORT VECTOR MACHINES (SVM)
-        // ============================================================
         {
             q: "What is the main goal of an SVM?",
             opts: ["To find the hyperplane that maximizes the margin between classes", "To find the average of classes", "To build a tree", "To find neighbors"],
             a: 0,
             exp: "SVM searches for the widest possible street (margin) separating the classes.",
-            src: "Slide: SVM Goal"
+            src: "Exhibit BB: SVM Goal"
         },
         {
             q: "What are 'Support Vectors'?",
             opts: ["The centroids", "The data points closest to the hyperplane/decision boundary", "All data points", "The errors"],
             a: 1,
             exp: "These specific points define the position and orientation of the hyperplane.",
-            src: "Slide: Support Vectors"
-        },
-        {
-            q: "In SVM, what is a 'Hyperplane'?",
-            opts: ["A 3D shape", "The decision boundary that separates the classes", "The dataset", "The kernel"],
-            a: 1,
-            exp: "In 2D it's a line; in 3D it's a plane; in higher dimensions, it's a hyperplane.",
-            src: "Slide: SVM Terminology"
+            src: "Exhibit BB: Support Vectors"
         },
         {
             q: "What is the 'Kernel Trick'?",
             opts: ["A way to cheat on tests", "A method to map non-linearly separable data into a higher dimension where it becomes linearly separable", "A way to compress data", "A pruning method"],
             a: 1,
             exp: "It allows SVM to draw linear boundaries in high dimensions that look like curves in the original space.",
-            src: "Slide: Kernel Trick"
-        },
-        {
-            q: "What is the difference between Hard Margin and Soft Margin SVM?",
-            opts: ["Hard is for text, Soft is for images", "Hard allows no errors; Soft allows some misclassification to be more robust", "Hard is faster", "Soft uses no math"],
-            a: 1,
-            exp: "Soft Margin allows some points to violate the boundary to prevent overfitting.",
-            src: "Slide: Margins"
+            src: "Exhibit CC: Kernel Trick"
         },
         {
             q: "The 'C' parameter in SVM controls:",
             opts: ["The number of kernels", "The trade-off between maximizing the margin and minimizing classification errors", "The speed of learning", "The number of clusters"],
             a: 1,
             exp: "High C = strict (Hard Margin); Low C = loose (Soft Margin).",
-            src: "Slide: Hyperparameters"
-        },
-        {
-            q: "Which kernel is commonly used for non-linear data in SVM?",
-            opts: ["Linear Kernel", "RBF (Radial Basis Function) Kernel", "Average Kernel", "Null Kernel"],
-            a: 1,
-            exp: "RBF is the default choice for non-linear problems.",
-            src: "Slide: Kernels"
-        },
-        {
-            q: "SVM is primarily a _______ classifier.",
-            opts: ["Binary (Two-class)", "Multi-class", "Unsupervised", "Regression"],
-            a: 0,
-            exp: "Standard SVM separates two classes (Positive vs Negative). Multi-class requires tricks like One-vs-Rest.",
-            src: "Slide: SVM Nature"
+            src: "Exhibit EE: Hyperparameters"
         },
         {
             q: "Is SVM sensitive to unscaled data?",
             opts: ["No", "Yes, highly sensitive", "Only with text", "Only with images"],
             a: 1,
             exp: "Because it calculates margins using distance, unscaled features ruin the result.",
-            src: "Slide: SVM Preprocessing"
-        },
-        {
-            q: "If data is Linearly Separable, which kernel should you use?",
-            opts: ["RBF", "Polynomial", "Linear", "Sigmoid"],
-            a: 2,
-            exp: "The Linear kernel is the simplest and fastest for data that can be cut with a straight line.",
-            src: "Slide: Kernels"
-        },
-
-        // ============================================================
-        // MODULE 6: MIXED / REVIEW (From Previous Chat & General)
-        // ============================================================
-        {
-            q: "In the regression formula y = mx + c, 'c' is:",
-            opts: ["Slope", "Intercept", "Error", "Input"],
-            a: 1,
-            exp: "The intercept is the value of y when x is 0.",
-            src: "Chat Review"
-        },
-        {
-            q: "Reshuffling in K-Means refers to:",
-            opts: ["Randomizing data", "Points switching clusters after centroids update", "Changing K", "Stopping"],
-            a: 1,
-            exp: "Points re-assign themselves to the nearest centroid in every iteration.",
-            src: "Chat Review"
-        },
-        {
-            q: "If your Elbow curve is smooth (no bend), you should:",
-            opts: ["Pick k=1", "Use business context to decide", "Give up", "Use Max k"],
-            a: 1,
-            exp: "Math isn't always decisive; practical needs (e.g., marketing budget) guide the choice.",
-            src: "Chat Review"
-        },
-        {
-            q: "Euclidean distance calculation involves:",
-            opts: ["Summing coordinates", "Squaring differences, summing, then square root", "Multiplying coordinates", "Averaging"],
-            a: 1,
-            exp: "Pythagorean theorem: Sqrt(a^2 + b^2).",
-            src: "Chat Review"
-        },
-        {
-            q: "A p-length mean vector represents:",
-            opts: ["A Centroid in p-dimensional space", "A password", "An error", "A cluster ID"],
-            a: 0,
-            exp: "It's the mathematical definition of a centroid with p features.",
-            src: "Chat Review"
-        },
-        {
-            q: "Why is 'Credit Card Fraud' usually Anomaly Detection?",
-            opts: ["It's a dense cluster", "It's a rare deviation from the norm", "It's supervised", "It's regression"],
-            a: 1,
-            exp: "Fraud is the 'odd one out', not a large group.",
-            src: "Chat Review"
-        },
-        {
-            q: "Agglomerative Clustering starts with:",
-            opts: ["One big cluster", "Every point as its own cluster", "Random centroids", "A grid"],
-            a: 1,
-            exp: "Bottom-up approach: Start distinct, merge until one.",
-            src: "Chat Review"
-        },
-        {
-            q: "Divisive Clustering starts with:",
-            opts: ["Every point alone", "One giant cluster containing everyone", "Random groups", "K clusters"],
-            a: 1,
-            exp: "Top-down approach: Start together, split until distinct.",
-            src: "Chat Review"
+            src: "Exhibit GG: SVM Preprocessing"
         },
         {
             q: "What defines 'Hard Clustering'?",
             opts: ["Overlap allowed", "No overlap (1 point = 1 cluster)", "Fuzzy logic", "Hierarchical"],
             a: 1,
             exp: "Strict boundaries; you are either In or Out.",
-            src: "Chat Review"
-        },
-        {
-            q: "Which technique compresses image files?",
-            opts: ["Clustering", "Dimensionality Reduction", "SVM", "kNN"],
-            a: 1,
-            exp: "Reducing pixels/variables while keeping the image recognizable.",
-            src: "Chat Review"
-        },
-        {
-            q: "If K-Means Centroid is at (3,3), it means:",
-            opts: ["There is a data point at (3,3)", "The average of the cluster is (3,3)", "The error is 3", "The radius is 3"],
-            a: 1,
-            exp: "Centroid is a calculated mean, often in empty space.",
-            src: "Chat Review"
+            src: "Evidence: Chat Review"
         },
         {
             q: "If K=N (number of points), error is:",
             opts: ["Zero", "High", "Infinite", "Average"],
             a: 0,
             exp: "Distance to self is zero, but the model is useless.",
-            src: "Chat Review"
-        },
-        {
-            q: "What does the 'Green Boundary Line' in K-Means represent?",
-            opts: ["The territory split between centroids", "The error", "The regression line", "The x-axis"],
-            a: 0,
-            exp: "The line where points are equidistant to two centroids.",
-            src: "Chat Review"
-        },
-        {
-            q: "Association Mining finds:",
-            opts: ["Clusters", "Rules like If X then Y", "Anomalies", "Regression lines"],
-            a: 1,
-            exp: "Relationships between items (Beer -> Diapers).",
-            src: "Chat Review"
-        },
-        {
-            q: "Classification is a branch of:",
-            opts: ["Unsupervised", "Supervised", "Reinforcement", "Clustering"],
-            a: 1,
-            exp: "It requires labels to learn the classes.",
-            src: "Chat Review"
-        },
-        {
-            q: "What stops K-Means?",
-            opts: ["Convergence (Centroids stop moving)", "User click", "Error=0", "Data runs out"],
-            a: 0,
-            exp: "When the system stabilizes.",
-            src: "Chat Review"
-        },
-        {
-            q: "Standardizing data avoids bias in:",
-            opts: ["Distance-based algorithms (kNN, K-Means, SVM)", "Decision Trees", "Random Forest", "Naive Bayes"],
-            a: 0,
-            exp: "Distance calculations are sensitive to scale differences.",
-            src: "General ML"
+            src: "Evidence: Chat Review"
         },
         {
             q: "A Confusion Matrix is used to evaluate:",
             opts: ["Regression", "Classification", "Clustering", "Reinforcement"],
             a: 1,
             exp: "It shows True Positives, False Positives, etc.",
-            src: "General ML"
-        },
-        {
-            q: "Accuracy is defined as:",
-            opts: ["(TP+TN) / Total", "TP / (TP+FP)", "TP / (TP+FN)", "1 - Error"],
-            a: 0,
-            exp: "The percentage of correct predictions overall.",
-            src: "General ML"
-        },
-        {
-            q: "The 'Test Set' simulates:",
-            opts: ["Training", "Real-world/Future data", "Past data", "Noise"],
-            a: 1,
-            exp: "It acts as a proxy for how the model will perform in the wild.",
-            src: "General ML"
-        },
-        {
-            q: "If a model has high variance, it is likely:",
-            opts: ["Overfitting", "Underfitting", "Perfect", "Linear"],
-            a: 0,
-            exp: "High variance means it changes too much with different data (memorization).",
-            src: "General ML"
-        },
-        {
-            q: "If a model has high bias, it is likely:",
-            opts: ["Overfitting", "Underfitting", "Complex", "Perfect"],
-            a: 1,
-            exp: "High bias means it ignores data structure (too simple).",
-            src: "General ML"
-        },
-        {
-            q: "Which algorithm uses 'Information Gain'?",
-            opts: ["SVM", "Decision Tree", "kNN", "Linear Regression"],
-            a: 1,
-            exp: "Used to decide the best split.",
-            src: "Slide: Decision Trees"
-        },
-        {
-            q: "Which algorithm uses 'Support Vectors'?",
-            opts: ["SVM", "Decision Tree", "kNN", "K-Means"],
-            a: 0,
-            exp: "SVM relies on the points closest to the boundary.",
-            src: "Slide: SVM"
-        },
-        {
-            q: "Which algorithm uses 'Voting'?",
-            opts: ["kNN", "Linear Regression", "K-Means", "PCA"],
-            a: 0,
-            exp: "Neighbors vote on the class of the new point.",
-            src: "Slide: kNN"
-        },
-        {
-            q: "Which algorithm uses 'Centroids'?",
-            opts: ["K-Means", "SVM", "Decision Tree", "kNN"],
-            a: 0,
-            exp: "The center of the cluster.",
-            src: "Slide: K-Means"
-        },
-        {
-            q: "Logic-based learning refers to:",
-            opts: ["Decision Trees", "Neural Networks", "kNN", "Regression"],
-            a: 0,
-            exp: "Trees use logical IF-THEN rules.",
-            src: "General ML"
-        },
-        {
-            q: "Instance-based learning refers to:",
-            opts: ["kNN", "Decision Trees", "SVM", "Neural Networks"],
-            a: 0,
-            exp: "It memorizes instances rather than building a model.",
-            src: "General ML"
-        },
-        {
-            q: "Hyperplane-based learning refers to:",
-            opts: ["SVM", "Decision Trees", "kNN", "Clustering"],
-            a: 0,
-            exp: "SVM splits space with a hyperplane.",
-            src: "General ML"
-        },
-        {
-            q: "What is the result of Pruning a Decision Tree?",
-            opts: ["Reduced complexity and overfitting", "Increased complexity", "More leaves", "Higher variance"],
-            a: 0,
-            exp: "It simplifies the tree to generalize better.",
-            src: "Slide: Decision Trees"
-        },
-        {
-            q: "If you remove the labels from a Spam dataset, can you use SVM?",
-            opts: ["No", "Yes", "Maybe", "Only with kernels"],
-            a: 0,
-            exp: "SVM is Supervised; it needs labels to learn the boundary.",
-            src: "Slide: SVM"
-        },
-        {
-            q: "In kNN, if k is even, what problem might arise?",
-            opts: ["Ties in voting", "Overfitting", "Underfitting", "Crash"],
-            a: 0,
-            exp: "2 votes for A, 2 votes for B -> Tie. Usually odd k is preferred.",
-            src: "Slide: kNN"
-        },
-        {
-            q: "Which is computationally more expensive at prediction time?",
-            opts: ["kNN", "Decision Tree", "Linear Regression", "SVM"],
-            a: 0,
-            exp: "kNN must calculate distance to ALL training points for every new prediction.",
-            src: "Slide: kNN"
-        },
-        {
-            q: "Gradient Descent is an algorithm for:",
-            opts: ["Optimization (Minimizing error)", "Clustering", "Classification", "Splitting trees"],
-            a: 0,
-            exp: "It adjusts weights to find the minimum error.",
-            src: "General ML"
-        },
-        {
-            q: "What is a 'Soft Margin' in SVM?",
-            opts: ["Allowing some misclassification to handle noise", "A curved line", "A clustering method", "A slow algorithm"],
-            a: 0,
-            exp: "It relaxes the strict boundary rule.",
-            src: "Slide: SVM"
-        },
-        {
-            q: "Which metric is best for imbalanced data (e.g. 99% healthy, 1% sick)?",
-            opts: ["Accuracy", "F1-Score / Precision-Recall", "MSE", "R-Squared"],
-            a: 1,
-            exp: "Accuracy is misleading if classes are imbalanced.",
-            src: "General ML"
-        },
-        {
-            q: "Clustering is distinct from Classification because:",
-            opts: ["Clustering has no predefined classes", "Clustering uses trees", "Clustering is supervised", "They are the same"],
-            a: 0,
-            exp: "Classification targets specific labels; Clustering finds natural groups.",
-            src: "Slide: Unsupervised"
-        },
-        {
-            q: "What is the 'Kernel' in SVM?",
-            opts: ["A function to transform data to higher dimensions", "The center of the data", "The error rate", "The algorithm name"],
-            a: 0,
-            exp: "The Kernel Trick handles non-linear data.",
-            src: "Slide: SVM"
-        },
-        {
-            q: "Entropy is a measure of:",
-            opts: ["Disorder / Impurity", "Distance", "Accuracy", "Speed"],
-            a: 0,
-            exp: "High entropy = mixed classes; Low entropy = pure node.",
-            src: "Slide: Decision Trees"
-        },
-        {
-            q: "Euclidean distance fails when:",
-            opts: ["Dimensions are very high", "Data is 2D", "Data is numerical", "K is 3"],
-            a: 0,
-            exp: "Curse of Dimensionality.",
-            src: "Slide: kNN"
-        },
-        {
-            q: "Which algorithm is 'Greedy'?",
-            opts: ["Decision Tree", "SVM", "kNN", "Linear Regression"],
-            a: 0,
-            exp: "It makes the best split at the current node without looking ahead.",
-            src: "Slide: Decision Trees"
-        },
-        {
-            q: "A decision boundary in Logistic Regression is:",
-            opts: ["Linear", "Curved", "Circular", "Tree-based"],
-            a: 0,
-            exp: "It is a linear classifier.",
-            src: "General ML"
+            src: "Evidence: General ML"
         },
         {
             q: "Bagging (Bootstrap Aggregating) is used in:",
             opts: ["Random Forest", "SVM", "kNN", "K-Means"],
             a: 0,
             exp: "Random Forest combines many trees using bagging.",
-            src: "General ML"
-        },
-        {
-            q: "Bias-Variance Tradeoff describes:",
-            opts: ["The balance between model simplicity and flexibility", "The cost of the model", "The time vs space complexity", "The ratio of training data"],
-            a: 0,
-            exp: "Low bias/High variance = Overfit. High bias/Low variance = Underfit.",
-            src: "General ML"
-        },
-        {
-            q: "Which learning type uses 'Clusters'?",
-            opts: ["Unsupervised", "Supervised", "Reinforcement", "Semi-supervised"],
-            a: 0,
-            exp: "Clustering is the core of Unsupervised learning.",
-            src: "General ML"
+            src: "Evidence: General ML"
         },
         {
             q: "If your data is text, which preprocessing is needed?",
             opts: ["Vectorization / Embedding", "Scaling only", "Nothing", "Deleting vowels"],
             a: 0,
             exp: "Models need numbers; text must be converted to vectors.",
-            src: "General ML"
-        },
-        {
-            q: "What is 'Label Encoding'?",
-            opts: ["Converting categories to numbers", "Writing labels by hand", "Removing labels", "Sorting labels"],
-            a: 0,
-            exp: "Turning 'Red, Blue' into '0, 1'.",
-            src: "General ML"
-        },
-        {
-            q: "In K-Means, what is 'Initialization'?",
-            opts: ["Placing the first centroids", "Loading data", "Cleaning data", "Evaluating error"],
-            a: 0,
-            exp: "The start position of centroids affects the result.",
-            src: "Slide: K-Means"
-        },
-        {
-            q: "Why is 'C' used in SVM?",
-            opts: ["Regularization parameter", "Count of vectors", "Cluster number", "Class label"],
-            a: 0,
-            exp: "It controls the penalty for misclassification.",
-            src: "Slide: SVM"
+            src: "Evidence: General ML"
         },
         {
             q: "What is the output of a Decision Tree Regression?",
             opts: ["The average value of the leaf samples", "The majority class", "A probability", "A cluster ID"],
             a: 0,
             exp: "For regression trees, the leaf predicts the mean of the samples in it.",
-            src: "General ML"
+            src: "Evidence: General ML"
+        },
+        {
+            q: "Which algorithm is 'Greedy'?",
+            opts: ["Decision Tree", "SVM", "kNN", "Linear Regression"],
+            a: 0,
+            exp: "It makes the best split at the current node without looking ahead.",
+            src: "Exhibit AA: Algorithm Logic"
+        },
+        {
+            q: "What is 'Gini Impurity'?",
+            opts: ["A type of drink", "Another metric like Entropy to measure node purity", "A pruning method", "A tree type"],
+            a: 1,
+            exp: "Gini is an alternative to Entropy, often used because it's faster to calculate.",
+            src: "Exhibit Y: Splitting Criteria"
+        },
+        {
+            q: "Can Decision Trees handle both numerical and categorical data?",
+            opts: ["No, only numerical", "No, only categorical", "Yes, they handle both well", "Only if normalized"],
+            a: 2,
+            exp: "They are versatile and don't strictly require one type or scaling.",
+            src: "Exhibit Z: Pros/Cons"
+        },
+        {
+            q: "Why is 'C' used in SVM?",
+            opts: ["Regularization parameter", "Count of vectors", "Cluster number", "Class label"],
+            a: 0,
+            exp: "It controls the penalty for misclassification.",
+            src: "Exhibit EE: Hyperparameters"
+        },
+        {
+            q: "What is 'Label Encoding'?",
+            opts: ["Converting categories to numbers", "Writing labels by hand", "Removing labels", "Sorting labels"],
+            a: 0,
+            exp: "Turning 'Red, Blue' into '0, 1'.",
+            src: "Evidence: General ML"
+        },
+        {
+            q: "Which learning type uses 'Clusters'?",
+            opts: ["Unsupervised", "Supervised", "Reinforcement", "Semi-supervised"],
+            a: 0,
+            exp: "Clustering is the core of Unsupervised learning.",
+            src: "Evidence: General ML"
+        },
+        {
+            q: "Bias-Variance Tradeoff describes:",
+            opts: ["The balance between model simplicity and flexibility", "The cost of the model", "The time vs space complexity", "The ratio of training data"],
+            a: 0,
+            exp: "Low bias/High variance = Overfit. High bias/Low variance = Underfit.",
+            src: "Evidence: General ML"
+        },
+        {
+            q: "A decision boundary in Logistic Regression is:",
+            opts: ["Linear", "Curved", "Circular", "Tree-based"],
+            a: 0,
+            exp: "It is a linear classifier.",
+            src: "Evidence: General ML"
+        },
+        {
+            q: "Euclidean distance fails when:",
+            opts: ["Dimensions are very high", "Data is 2D", "Data is numerical", "K is 3"],
+            a: 0,
+            exp: "Curse of Dimensionality.",
+            src: "Exhibit U: kNN Issues"
+        },
+        {
+            q: "Entropy is a measure of:",
+            opts: ["Disorder / Impurity", "Distance", "Accuracy", "Speed"],
+            a: 0,
+            exp: "High entropy = mixed classes; Low entropy = pure node.",
+            src: "Exhibit Y: Splitting Criteria"
+        },
+        {
+            q: "What is the 'Kernel' in SVM?",
+            opts: ["A function to transform data to higher dimensions", "The center of the data", "The error rate", "The algorithm name"],
+            a: 0,
+            exp: "The Kernel Trick handles non-linear data.",
+            src: "Exhibit CC: Kernel Trick"
+        },
+        {
+            q: "Which metric is best for imbalanced data (e.g. 99% healthy, 1% sick)?",
+            opts: ["Accuracy", "F1-Score / Precision-Recall", "MSE", "R-Squared"],
+            a: 1,
+            exp: "Accuracy is misleading if classes are imbalanced.",
+            src: "Evidence: General ML"
+        },
+        {
+            q: "What is a 'Soft Margin' in SVM?",
+            opts: ["Allowing some misclassification to handle noise", "A curved line", "A clustering method", "A slow algorithm"],
+            a: 0,
+            exp: "It relaxes the strict boundary rule.",
+            src: "Exhibit DD: Margins"
+        },
+        {
+            q: "Gradient Descent is an algorithm for:",
+            opts: ["Optimization (Minimizing error)", "Clustering", "Classification", "Splitting trees"],
+            a: 0,
+            exp: "It adjusts weights to find the minimum error.",
+            src: "Evidence: General ML"
+        },
+        {
+            q: "Which is computationally more expensive at prediction time?",
+            opts: ["kNN", "Decision Tree", "Linear Regression", "SVM"],
+            a: 0,
+            exp: "kNN must calculate distance to ALL training points for every new prediction.",
+            src: "Exhibit R: kNN Concept"
+        },
+        {
+            q: "In kNN, if k is even, what problem might arise?",
+            opts: ["Ties in voting", "Overfitting", "Underfitting", "Crash"],
+            a: 0,
+            exp: "2 votes for A, 2 votes for B -> Tie. Usually odd k is preferred.",
+            src: "Exhibit R: kNN Concept"
+        },
+        {
+            q: "If you remove the labels from a Spam dataset, can you use SVM?",
+            opts: ["No", "Yes", "Maybe", "Only with kernels"],
+            a: 0,
+            exp: "SVM is Supervised; it needs labels to learn the boundary.",
+            src: "Exhibit BB: SVM Goal"
+        },
+        {
+            q: "What is the result of Pruning a Decision Tree?",
+            opts: ["Reduced complexity and overfitting", "Increased complexity", "More leaves", "Higher variance"],
+            a: 0,
+            exp: "It simplifies the tree to generalize better.",
+            src: "Exhibit Z: Pruning"
+        },
+        {
+            q: "Hyperplane-based learning refers to:",
+            opts: ["SVM", "Decision Trees", "kNN", "Clustering"],
+            a: 0,
+            exp: "SVM splits space with a hyperplane.",
+            src: "Exhibit BB: SVM Terminology"
+        },
+        {
+            q: "Instance-based learning refers to:",
+            opts: ["kNN", "Decision Trees", "SVM", "Neural Networks"],
+            a: 0,
+            exp: "It memorizes instances rather than building a model.",
+            src: "Exhibit R: kNN Concept"
+        },
+        {
+            q: "Logic-based learning refers to:",
+            opts: ["Decision Trees", "Neural Networks", "kNN", "Regression"],
+            a: 0,
+            exp: "Trees use logical IF-THEN rules.",
+            src: "Exhibit X: Decision Trees"
+        },
+        {
+            q: "Which algorithm uses 'Centroids'?",
+            opts: ["K-Means", "SVM", "Decision Tree", "kNN"],
+            a: 0,
+            exp: "The center of the cluster.",
+            src: "Exhibit N: K-Means"
+        },
+        {
+            q: "Which algorithm uses 'Voting'?",
+            opts: ["kNN", "Linear Regression", "K-Means", "PCA"],
+            a: 0,
+            exp: "Neighbors vote on the class of the new point.",
+            src: "Exhibit R: kNN Algorithm"
+        },
+        {
+            q: "Which algorithm uses 'Support Vectors'?",
+            opts: ["SVM", "Decision Tree", "kNN", "K-Means"],
+            a: 0,
+            exp: "SVM relies on the points closest to the boundary.",
+            src: "Exhibit BB: Support Vectors"
+        },
+        {
+            q: "Which algorithm uses 'Information Gain'?",
+            opts: ["SVM", "Decision Tree", "kNN", "Linear Regression"],
+            a: 1,
+            exp: "Used to decide the best split.",
+            src: "Exhibit Y: Splitting Criteria"
+        },
+        {
+            q: "If a model has high bias, it is likely:",
+            opts: ["Overfitting", "Underfitting", "Complex", "Perfect"],
+            a: 1,
+            exp: "High bias means it ignores data structure (too simple).",
+            src: "Exhibit M: Book - Theory"
+        },
+        {
+            q: "If a model has high variance, it is likely:",
+            opts: ["Overfitting", "Underfitting", "Perfect", "Linear"],
+            a: 0,
+            exp: "High variance means it changes too much with different data (memorization).",
+            src: "Exhibit M: Book - Theory"
+        },
+        {
+            q: "The 'Test Set' simulates:",
+            opts: ["Training", "Real-world/Future data", "Past data", "Noise"],
+            a: 1,
+            exp: "It acts as a proxy for how the model will perform in the wild.",
+            src: "Exhibit I: Methodology"
+        },
+        {
+            q: "Accuracy is defined as:",
+            opts: ["(TP+TN) / Total", "TP / (TP+FP)", "TP / (TP+FN)", "1 - Error"],
+            a: 0,
+            exp: "The percentage of correct predictions overall.",
+            src: "Exhibit R: Book - Evaluation"
+        },
+        {
+            q: "Standardizing data avoids bias in:",
+            opts: ["Distance-based algorithms (kNN, K-Means, SVM)", "Decision Trees", "Random Forest", "Naive Bayes"],
+            a: 0,
+            exp: "Distance calculations are sensitive to scale differences.",
+            src: "Exhibit N: Book - Scaling"
+        },
+        {
+            q: "What stops K-Means?",
+            opts: ["Convergence (Centroids stop moving)", "User click", "Error=0", "Data runs out"],
+            a: 0,
+            exp: "When the system stabilizes.",
+            src: "Exhibit N: Stopping Rules"
+        },
+        {
+            q: "Classification is a branch of:",
+            opts: ["Unsupervised", "Supervised", "Reinforcement", "Clustering"],
+            a: 1,
+            exp: "It requires labels to learn the classes.",
+            src: "Exhibit E: Classification"
+        },
+        {
+            q: "Association Mining finds:",
+            opts: ["Clusters", "Rules like If X then Y", "Anomalies", "Regression lines"],
+            a: 1,
+            exp: "Relationships between items (Beer -> Diapers).",
+            src: "Exhibit Q: Association Mining"
+        },
+        {
+            q: "What does the 'Green Boundary Line' in K-Means represent?",
+            opts: ["The territory split between centroids", "The error", "The regression line", "The x-axis"],
+            a: 0,
+            exp: "The line where points are equidistant to two centroids.",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "If K=N (number of points), error is:",
+            opts: ["Zero", "High", "Infinite", "Average"],
+            a: 0,
+            exp: "Distance to self is zero, but the model is useless.",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "If K-Means Centroid is at (3,3), it means:",
+            opts: ["There is a data point at (3,3)", "The average of the cluster is (3,3)", "The error is 3", "The radius is 3"],
+            a: 1,
+            exp: "Centroid is a calculated mean, often in empty space.",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "Which technique compresses image files?",
+            opts: ["Clustering", "Dimensionality Reduction", "SVM", "kNN"],
+            a: 1,
+            exp: "Reducing pixels/variables while keeping the image recognizable.",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "What defines 'Hard Clustering'?",
+            opts: ["Overlap allowed", "No overlap (1 point = 1 cluster)", "Fuzzy logic", "Hierarchical"],
+            a: 1,
+            exp: "Strict boundaries; you are either In or Out.",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "Divisive Clustering starts with:",
+            opts: ["Every point alone", "One giant cluster containing everyone", "Random groups", "K clusters"],
+            a: 1,
+            exp: "Top-down approach: Start together, split until distinct.",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "Agglomerative Clustering starts with:",
+            opts: ["One big cluster", "Every point as its own cluster", "Random centroids", "A grid"],
+            a: 1,
+            exp: "Bottom-up approach: Start distinct, merge until one.",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "Why is 'Credit Card Fraud' usually Anomaly Detection?",
+            opts: ["It's a dense cluster", "It's a rare deviation from the norm", "It's supervised", "It's regression"],
+            a: 1,
+            exp: "Fraud is the 'odd one out', not a large group.",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "A p-length mean vector represents:",
+            opts: ["A Centroid in p-dimensional space", "A password", "An error", "A cluster ID"],
+            a: 0,
+            exp: "It's the mathematical definition of a centroid with p features.",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "Euclidean distance calculation involves:",
+            opts: ["Summing coordinates", "Squaring differences, summing, then square root", "Multiplying coordinates", "Averaging"],
+            a: 1,
+            exp: "Pythagorean theorem: Sqrt(a^2 + b^2).",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "If your Elbow curve is smooth (no bend), you should:",
+            opts: ["Pick k=1", "Use business context to decide", "Give up", "Use Max k"],
+            a: 1,
+            exp: "Math isn't always decisive; practical needs (e.g., marketing budget) guide the choice.",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "Reshuffling in K-Means refers to:",
+            opts: ["Randomizing data", "Points switching clusters after centroids update", "Changing K", "Stopping"],
+            a: 1,
+            exp: "Points re-assign themselves to the nearest centroid in every iteration.",
+            src: "Evidence: Chat Review"
+        },
+        {
+            q: "In the regression formula y = mx + c, 'c' is:",
+            opts: ["Slope", "Intercept", "Error", "Input"],
+            a: 1,
+            exp: "The intercept is the value of y when x is 0.",
+            src: "Evidence: Chat Review"
         }
     ];
 
